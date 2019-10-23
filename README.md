@@ -2,7 +2,7 @@ milliQan Cosmic Muons Simulation
 ================================
 
 Simulation of Cosmic muons entering the milliQan chamber from different radial distances. The chamber is approximated as a hemisphere of radius 2 meters under 58 meters of rock. The system is assumed to be
-azimuthally symmetric. Flux is calculated based on the energy of the cosmic muon and the zenith angle at which it hits the surface of the Earth \[[1]\](#ref1). The program then uses a rock-throwing Monte Carlo
+azimuthally symmetric. Flux is calculated based on the energy of the cosmic muon and the zenith angle at which it hits the surface of the Earth [\[1\]](#ref1). The program then uses a rock-throwing Monte Carlo
 method to generate muons with the calcuated flux distribution.
 
 System Requirements

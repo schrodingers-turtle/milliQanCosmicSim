@@ -79,8 +79,8 @@ def genmuons(I, E_min):
 
 def annul(r_a, r_b):
 	r_mid 		= (r_a+r_b)/2.
-	E_min		= sp.sqrt(r_mid**2+60**2)-2	#min energy is 1 GeV per meter of rock
-	theta 		= sp.arctan(r_mid/60.)
+	E_min		= sp.sqrt(r_mid**2+depth**2)-2	#min energy is 1 GeV per meter of rock
+	theta 		= sp.arctan(r_mid/depth)
 	
 	area		= (r_b**2 - r_a**2)*sp.pi
 

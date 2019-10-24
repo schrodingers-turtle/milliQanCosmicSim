@@ -77,6 +77,9 @@ def genmuons(I, E_min):
 			Elist.append([xp])
 	return Elist
 
+def norm(I, E_min):
+	return sp.quad(I,E_min,E_max)
+
 def annul(r_a, r_b):
 	r_mid 		= (r_a+r_b)/2.
 	E_min		= sp.sqrt(r_mid**2+depth**2)-2	#min energy is 1 GeV per meter of rock
@@ -92,29 +95,33 @@ def annul(r_a, r_b):
 
 	sldangl 	= 2*phip*(sp.cos(thetap_a) - sp.cos(thetap_b))
 
-	def I(E):
+	def I(E):								#integrated flux for annulus r_ab
 		return area*sldangl*Ifun(E,theta)
 	
-#	test(I,E_min)		#produces a rate vs log momentum plot
-	
-	mlist = genmuons(I,E_min)
-	
-	for i in range(0,len(mlist)):
-		phi = random.uniform(0,2*sp.pi)
-		mlist[i].append(random.uniform(r_a,r_b))
-		mlist[i].append(phi)
-		mlist[i].append(random.uniform(thetap_a,thetap_b))
-		mlist[i].append((random.uniform(-phip,phip)+phi)%(2*sp.pi))
-	
-	return mlist
+	def nI(E):								#normalized integrated flux for annulus r_ab
+		return I(E)/norm(I,E_min)
 
+#	test(nI,E_min)								#produces a flux vs log momentum plot
+	
+	mlist = genmuons(nI,E_min)						#generates muons of varied momenta from normalized flux
+	
+	for i in range(0,len(mlist)):			
+		phi = random.uniform(0,2*sp.pi)		
+		mlist[i].append(random.uniform(r_a,r_b))			#gives muons random radial location within annulus
+		mlist[i].append(phi)						#gives muons random azimuthal location
+		mlist[i].append(random.uniform(thetap_a,thetap_b))		#gives muons random zenith trajectory within allowed range
+		mlist[i].append((random.uniform(-phip,phip)+phi)%(2*sp.pi))	#gives muons random azimuthal trajectory within allowed range
+										#while adding azimuthal location and modding by 2pi
+
+	return mlist								#returns final list of muons with radial and azimuthal location
+										#and zenith and azimuthal trajectories
 def main():
-	Nsteps = (rmax - rmin)/rstep
+	Nsteps = (rmax - rmin)/rstep						#determine number of steps for looping over different annuli
 
 	mlist = []
 
-	while len(mlist) < npart/10:
-		for i in range(1,Nsteps+1):
+	while len(mlist) < npart/10:						#loop over annuli until desired number of muons is reached
+		for i in range(1,Nsteps+1):					#loop over all annuli each iteration to prevent bias
 			mlist += annul(rmin+(i-1)*rstep,rmin + i*rstep)
 	print(mlist)
 

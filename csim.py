@@ -20,7 +20,7 @@ depth 	= 60.
 srfrad	= 1000.		#surface radius for rmax
 chmbrad = 2.		#chamber radius
 
-#initialize simulation variables
+#initialize generation variables
 rmin 	= 0
 rmax 	= 1000
 rstep	= 1
@@ -33,52 +33,6 @@ def Dfun(theta):	#from ref[1]
 
 def Ifun(E,theta):	#also from ref[1]
 	return I_0*N*(E_0 + E)**(-n)*(1 + E*epinv)**(-1)*Dfun(theta)
-
-def test(I,E_min):	#for testing the sampled muons by energy distribution at theta = 0
-	n_bins = 40
-	Num = 100
-	incr = sp.log10(E_max/E_min)/Num
-	analytx = []
-	analyty = []
-	for i in range(0,Num+1):
-		xx	= E_min*10**(i*incr)
-		analytx.append(xx)
-
-	analytx = np.asarray(analytx)
-
-	
-#	Norm = integrate.quad(I,E_min,E_max)[0]
-	
-#	analyty = np.asarray(analyty)/Norm
-
-	j = 0
-
-	samplx = []
-	samply = []
-	failx = []
-	faily = []
-	for i in range(1,npart):
-		x = sp.log10(E_max/E_c)*random.random()
-		y = Imax*random.random()
-		xp = E_c*10**x
-		yp = y
-		if xp >= E_min and y <= I(xp):
-			j += 1
-			samplx.append(xp)
-			samply.append(yp)
-	
-	pl.figure(figsize=(7,5))
-	pl.plot(analytx, I(analytx), 'r', label='Analytical flux')
-	pl.hist(samplx, n_bins, normed=1, label = 'Normed Muon count')
-	ax = pl.gca()
-	ax.set_xscale('log')
-	ax.set_yscale('log')
-	ax.set_xlabel('E/GeV')
-	ax.set_ylabel('I/s$^{-1}$(GeV/c)$^{-1}$')
-	ax.legend()
-#	pl.show()
-	pl.savefig(str(rmin)+'to'+str(rmax)+'.jpg')
-	pl.close()
 
 def genmuons(I, E_min):
 	Elist = []
@@ -120,8 +74,6 @@ def annul(r_a, r_b):
 	rate = integrate.quad(I,E_min,E_max)[0]
 	surfacerate = integrate.quad(I,E_c,E_max)[0]
 
-#	test(I,E_min)								#produces a flux vs log momentum plot
-	
 	raw = genmuons(I,E_min)							#generates muons of varied momenta from normalized flux
 	mlist = raw[0]
 	allacc = raw[1]
@@ -137,7 +89,7 @@ def annul(r_a, r_b):
 		mlist[i].append(rate)						#append rate to plot vs radius/azimuthal angle
 #		mlist[i].append(weight)						#append weight per muon (obsolete)
 
-	if 0==0:								#section for plotting histograms of generated muon energies
+	if 0!=0:								#section for plotting histograms of generated muon energies
 		grmlist = np.asarray(mlist)						
 		Num = 100
 		incr = sp.log10(E_max/E_cmil)/Num

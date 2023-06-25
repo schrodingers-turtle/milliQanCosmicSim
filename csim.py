@@ -94,33 +94,33 @@ def annul(r_a, r_b):
 		mlist[i].append(rate)						#append rate to plot vs radius/azimuthal angle
 #		mlist[i].append(weight)						#append weight per muon (obsolete)
 
-	if 0==0:								#section for plotting histograms of generated muon energies
-		grmlist = np.asarray(mlist)						
-		Num    	= 100
-		numbins = 100
-		incr   	= sp.log10(E_max/E_cmil)/Num
-		analytx = []
-		for i in range(0,Num+1):
-			xx	= E_cmil*10**(i*incr)
-			analytx.append(xx)
-
-		analytx = np.asarray(analytx)
-
-		E 	= grmlist[:,0] + E_min
-		bwidth	= (np.max(E) - np.min(E))/numbins
-		w	= np.full(np.shape(E),rate/len(E))
-
-		pl.figure(figsize=(7,5))
-		pl.plot(np.log10(analytx), I(analytx), 'r', label='Analytical flux')
-		pl.hist(np.log10(E), bins=numbins, weights=w, label = 'Normed Muon count')
-		ax = pl.gca()
-		ax.set_yscale('log')
-		ax.set_xlabel('log of E/GeV')
-		ax.set_ylabel('I/s$^{-1}$(GeV)$^{-1}$')
-		ax.legend()
-	#	pl.show()
-		pl.savefig(str(r_a)+'to'+str(r_b)+'.jpg')
-		pl.close()
+	# if 0==0:								#section for plotting histograms of generated muon energies
+	# 	grmlist = np.asarray(mlist)
+	# 	Num    	= 100
+	# 	numbins = 100
+	# 	incr   	= sp.log10(E_max/E_cmil)/Num
+	# 	analytx = []
+	# 	for i in range(0,Num+1):
+	# 		xx	= E_cmil*10**(i*incr)
+	# 		analytx.append(xx)
+	#
+	# 	analytx = np.asarray(analytx)
+	#
+	# 	E 	= grmlist[:,0] + E_min
+	# 	bwidth	= (np.max(E) - np.min(E))/numbins
+	# 	w	= np.full(np.shape(E),rate/len(E))
+	#
+	# 	pl.figure(figsize=(7,5))
+	# 	pl.plot(np.log10(analytx), I(analytx), 'r', label='Analytical flux')
+	# 	pl.hist(np.log10(E), bins=numbins, weights=w, label = 'Normed Muon count')
+	# 	ax = pl.gca()
+	# 	ax.set_yscale('log')
+	# 	ax.set_xlabel('log of E/GeV')
+	# 	ax.set_ylabel('I/s$^{-1}$(GeV)$^{-1}$')
+	# 	ax.legend()
+	# #	pl.show()
+	# 	pl.savefig(str(r_a)+'to'+str(r_b)+'.jpg')
+	# 	pl.close()
 
 	return mlist							#returns final list of muons with radial and azimuthal location
 										#and zenith and azimuthal trajectories

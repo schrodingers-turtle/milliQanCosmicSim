@@ -14,16 +14,16 @@ sqrtrad	= np.sqrt(rad)
 thetap	= mlist[:,3]
 Imax	= mlist[:,-3]
 
-print "there are " + str(mlist.shape[0]) + " muons"
+print("there are " + str(mlist.shape[0]) + " muons")
 
 totalrate = np.trapz(rate,x=rad)
 totalsrfrt = np.trapz(srfrate,x=rad)
 
-print "the total rate of muons hitting milliQan is " + str(totalrate) + " per second"
+print("the total rate of muons hitting milliQan is " + str(totalrate) + " per second")
 
-print "the total rate of muons at the surface is " + str(totalsrfrt) + " per second"
+print("the total rate of muons at the surface is " + str(totalsrfrt) + " per second")
 
-print "the ratio is " + str(totalrate/totalsrfrt)
+print("the ratio is " + str(totalrate/totalsrfrt))
 
 pl.figure(figsize=(7,5))
 pl.hist(E, n_bins)
@@ -49,7 +49,7 @@ pl.close()
 pl.figure(figsize=(7,5))
 n, b, patches = pl.hist(logE, n_bins)
 bin_max = np.where(n == n.max())
-print 'maxbin', b[bin_max][0]
+print('maxbin', b[bin_max][0])
 ax = pl.gca()
 ax.set_yscale('log')
 ax.set_xlabel('log of E/GeV')

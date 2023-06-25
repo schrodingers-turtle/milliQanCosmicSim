@@ -136,9 +136,9 @@ def main():
 
 	fullint = angint*integrate.quad(Iz,E_c,E_max)[0]*2*np.pi*0.0001*60	#rate per cm squared per minute
 
-	print str(fullint) + " is the rate of muons on the surface per cm squared per minute."								
+	print(str(fullint) + " is the rate of muons on the surface per cm squared per minute.")								
 
-	Nsteps = (rmax - rmin)/rstep						#determine number of steps for looping over different annuli
+	Nsteps = (rmax - rmin)//rstep						#determine number of steps for looping over different annuli
 
 	mlist = []
 

@@ -87,8 +87,8 @@ mkinvar[:,6] = mkinvar[:,6]*mmom
 
 #print mkinvar[:,0]**2 + mkinvar[:,1]**2 + mkinvar[:,2]**2
 
-print mkinvar
-print skinvar
+print(mkinvar)
+print(skinvar)
 
 rate	= mlist[:,5]
 uqind	= np.unique(rate,return_index=True)[1]
